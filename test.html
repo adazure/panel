@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item{
+            margin-bottom: 10px;
+            border:1px solid #ddd;
+            padding:10px;
+            font-size:14px;
+            font-family:arial;
+            color:#333;
+        }
+    </style>
+    <script>
+            var data = [
+                {name:'Ismail',title:'Software Developer'},
+                {name:'Erdem',title:'Software Developer'}
+            ];
+
+    </script>
+</head>
+<body>
+
+    <div condition="index 10 to 4">
+            <div condition="for item in data" class="item">
+                    <div><span data="item.name">:index</span><i class="icon-t"></i></div>
+                    <div item="name"></div>
+                </div>
+    </div>
+
+    
+
+    <script>
+    
+        function spt(value){
+            if(!value) return {};
+            
+            var sp = value.split(',');
+            var opt = {};
+            for(var i = 0; i < sp.length; i++){
+                var n = sp[i].split(':');
+                opt[n[0]] = n[1];
+            }
+            return opt;
+        }
+
+        function values(value,str){
+            var e = str.split('.');
+            var result = value;
+            try{
+                for (let i = 1; i < e.length; i++) {
+                    result = result[e[i]];
+                }
+            }
+            catch{
+                result = "";
+                console.warn(value + " içerisinde " + str + " bulunamadı");
+            }
+            return result;
+        }
+
+        function repl(data,html,name){
+            var reg = new RegExp("("+name+"(\.\\w+)+)",'g');
+            var match = html.match(reg);
+                
+            if(match){
+                for (let i = 0; i < match.length; i++) {
+                    const e = match[i];
+                    html = html.replace(e,values(data,e))
+                }
+            }
+            return html;
+        }
+        
+        var d = document.querySelectorAll('[condition]');
+        if(d){
+            d.forEach(function(e){
+
+                var condition = e.getAttribute('condition');
+                var clone = e.cloneNode(true);
+                clone.removeAttribute('condition');
+                let next = e;
+                let isRemove = false;
+                let reg = condition.match(/for\s(\w+)\sin\s(\w+)+/); // for item in data
+                let forx = condition.match(/((\w+)\s(\d+)\sto\s(\d+))/); //item 1 to 10
+                   
+                if(forx){
+                    var fxc = e;
+                    for (let i = forx[3]; i <= forx[4]; i++) {
+                        const qx = forx[i];
+                        const qcs = clone.cloneNode(true);
+                        qcs.innerHTML = qcs.innerHTML.replace(':'+forx[2],i)
+                        fxc.parentNode.insertBefore(qcs,fxc.nextSibling);
+                        fxc = qcs;
+                    }
+                }
+                if(reg){
+                    var item = reg[1];
+                    var value = eval(reg[2]);
+
+                    if(value){ 
+                        for (let i = 0; i < value.length; i++) {
+                            const element = value[i];
+                            const cc = clone.cloneNode(true);
+
+                            var fame = repl(element,cc.innerHTML,item);
+                            cc.innerHTML = fame;
+
+                            const f = cc.querySelectorAll('['+item+']');
+                          
+                            if(f){
+                                f.forEach(function(n){
+                                    var name = n.getAttribute(item);
+                                    var text = document.createTextNode(element[name] || "");
+                                    n.appendChild(text);
+                                });
+                            }
+                            next.parentNode.insertBefore(cc,next.nextSibling);
+                            if(!isRemove){
+                                next.parentNode.removeChild(next);
+                                isRemove = true;
+                            }
+                            next = cc;
+                        }
+                    }
+                }
+            });
+        }
+    
+    
+    </script>
+</body>
+</html>

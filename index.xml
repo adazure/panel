@@ -7,17 +7,17 @@
         <dropdown size="1">
             <media small="2"/>
             <items>
-                <item title="Select Country" data="" />
-                <item title="Turkey" data="turkey" />
-                <item title="France" data="france" />
-                <item title="Germany" data="germany" />
-                <item title="Italy" data="italy" />
-                <item title="Spain" data="spain" />
-                <item title="England" data="englang" />
-                <item title="Brazil" data="brazil" />
-                <item title="Switzerland" data="switzerlang" />
-                <item title="Georgia" data="georgia" />
-                <item title="Moldovia" data="moldovia" />
+                <item label="Select Country" data="" />
+                <item label="Turkey" data="turkey" />
+                <item label="France" data="france" />
+                <item label="Germany" data="germany" />
+                <item label="Italy" data="italy" />
+                <item label="Spain" data="spain" />
+                <item label="England" data="englang" />
+                <item label="Brazil" data="brazil" />
+                <item label="Switzerland" data="switzerlang" />
+                <item label="Georgia" data="georgia" />
+                <item label="Moldovia" data="moldovia" />
             </items>
         </dropdown>
     </section>

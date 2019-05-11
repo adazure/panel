@@ -14,7 +14,7 @@
                                                 <xs:choice maxOccurs="unbounded">
                                                     <xs:element name="item" maxOccurs="unbounded">
                                                         <xs:complexType>
-                                                            <xs:attribute name="title" use="required"></xs:attribute>
+                                                            <xs:attribute name="label" use="required"></xs:attribute>
                                                             <xs:attribute name="data" use="required"></xs:attribute>
                                                         </xs:complexType>
                                                     </xs:element>
